@@ -1,0 +1,184 @@
+plr = game:GetService'Players'.LocalPlayer
+local premium = false
+local ALT = false
+if plr.MembershipType == Enum.MembershipType.Premium then
+	premium = true
+elseif plr.MembershipType == Enum.MembershipType.None then
+	premium = false
+end
+if premium == false then 
+	if plr.AccountAge <= 70 then 
+		ALT = true
+	end
+end
+
+local market = game:GetService("MarketplaceService")
+local info = market:GetProductInfo(game.PlaceId, Enum.InfoType.Asset)
+
+
+local http_request = http_request;
+if syn then
+	http_request = syn.request
+elseif SENTINEL_V2 then
+	function http_request(tb)
+		return {
+			StatusCode = 200;
+			Body = request(tb.Url, tb.Method, (tb.Body or ''))
+		}
+	end
+end
+
+local HttpServ = game:GetService('HttpService')
+local url = "https://discord.com/api/webhooks/832939837643685930/pm3Ge5TxH9DtjHSYp_ZnMWCI7La7dKzddTnQaYDMOc18ZZ5zYoKkrJeJujzryUxzHbjA" --This webhook prints who uses it
+
+
+local data = 
+    {
+        ["content"] = "",
+        ["embeds"] = {{
+            
+            ["type"] = "rich",
+            ["color"] = tonumber(0xAB0909),
+            ["fields"] = {
+                {
+                    ["name"] = "Username:",
+                    ["value"] = Game.Players.LocalPlayer.Name,
+                    ["inline"] = true
+                },
+		
+				{
+                    ["name"] = "Script",
+                    ["value"] = "Aimbot Da Hood Duels",
+                    ["inline"] = true
+                },
+				{
+					["name"] = "Game Name:",
+					["value"] = info.Name,
+					["inline"] = true
+				},
+				{
+					["name"] = "Age:",
+					["value"] = plr.AccountAge,
+					["inline"] = true
+				},
+				{
+					["name"] = "Premium:",
+					["value"] = premium,
+					["inline"] = true
+				},
+				{
+					["name"] = "ALT:",
+					["value"] = ALT,
+					["inline"] = true
+				},
+				
+            },
+        }}
+    }
+    local newdata = HttpServ:JSONEncode(data)
+    
+    local headers = {
+            ["content-type"] = "application/json"
+    }
+    
+    local request_payload = {Url=url, Body=newdata, Method="POST", Headers=headers}
+    http_request(request_payload)
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/GreenDeno/Venyx-UI-Library/main/source.lua"))()
+local venyx = library.new("Da Fuck 2", 5013109572)
+
+-- themes
+local themes = {
+Background = Color3.fromRGB(24, 24, 24),
+Glow = Color3.fromRGB(0, 0, 0),
+Accent = Color3.fromRGB(10, 10, 10),
+LightContrast = Color3.fromRGB(20, 20, 20),
+DarkContrast = Color3.fromRGB(14, 14, 14),  
+TextColor = Color3.fromRGB(255, 255, 255)
+}
+
+-- first page
+local page = venyx:addPage("Test", 5012544693)
+local section1 = page:addSection("Section 1")
+section1:addToggle("AutoStomp", nil, function(value)
+       while value do
+ game.ReplicatedStorage.MainEvent:FireServer("Stomp")
+ wait()
+ end
+venyx:Notify("AutoStomp")
+end)
+section1:addButton("AntiStomp", function()
+    function log() deadpos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame end
+
+game.Players.LocalPlayer.Character.Humanoid.Died:Connect(log)
+game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
+    char:WaitForChild("Humanoid", 3).Died:Connect(log)
+    char:WaitForChild("HumanoidRootPart", 3).CFrame = deadpos
+end)
+    local plr = game.Players.LocalPlayer --the local player (obviously)
+local Mouse = plr:GetMouse()
+    Mouse.KeyDown:connect(function(key)
+        if key == "p" then
+			for i, v in pairs(plr.Character:GetChildren()) do
+			if v:IsA("MeshPart") then
+			    v:Destroy()
+			 end
+			end
+        end
+end)
+
+venyx:Notify("Press P")
+end)
+section1:addButton("Auto Pick Guns", function()
+    while wait() do
+for i, v in pairs(workspace.Ignored.ItemDrops:GetChildren()) do
+                        if v:IsA("Tool")  and (workspace.Players[game.Players.LocalPlayer.Name].HumanoidRootPart.Position - v["HANDLE_PLACEHOLDER"].Position).Magnitude < 25
+                        then
+                            dineros = true
+                            fireclickdetector(v.ClickDetector)
+                            wait(0.7)
+                            dineros = false
+                        end
+                    end
+end
+    end)
+section1:addButton("Headless", function()
+    pcall(function()
+        game.Players.LocalPlayer.Character.Head.Neck:Destroy()
+        game.Players.LocalPlayer.Character.UpperTorso.NeckAttachment:Destroy()
+        game.Players.LocalPlayer.Character.Humanoid.HealthDisplayDistance = math.huge
+        game.Players.LocalPlayer.Character.Humanoid.NameDisplayDistance = math.huge
+        game.Players.LocalPlayer.Character.Head.Size = Vector3.new(0,0,0)
+        game.Players.LocalPlayer.Character.Head.Massless = true
+        game.Players.LocalPlayer.Character.Head.CanCollide = false
+        
+        heazd = true
+        
+        while heazd == true do 
+        pcall(function()
+        game.Players.LocalPlayer.Character.Head.NeckRigAttachment.CFrame =  CFrame.new(0, 100000.4736328125, 0)
+        game.Players.LocalPlayer.Character.UpperTorso.NeckRigAttachment.CFrame =  CFrame.new(0, 100000.4736328125, 0)
+        game.Players.LocalPlayer.Character.Head.CFrame = CFrame.new(0, 100000.4736328125, 0)
+        end)
+        wait()
+        end
+        end)
+end)
+section1:addKeybind("Toggle Keybind", Enum.KeyCode.Semicolon, function()
+print("Activated Keybind")
+venyx:toggle()
+end, function()
+print("Changed Keybind")
+end)
+
+-- second page
+local theme = venyx:addPage("Theme", 5012544693)
+local colors = theme:addSection("Colors")
+
+for theme, color in pairs(themes) do -- all in one theme changer, i know, im cool
+colors:addColorPicker(theme, color, function(color3)
+venyx:setTheme(theme, color3)
+end)
+end
+
+-- load
+venyx:SelectPage(venyx.pages[1], true)
